@@ -69,6 +69,11 @@ nav button.on span{filter:none;transform:scale(1.15)}
 .sheet input,.sheet select{width:100%;font:inherit;font-weight:700;padding:11px 12px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink)}
 .sheet input.amt{font-size:26px;font-weight:900}
 .save{width:100%;margin-top:18px;background:var(--mint);color:#241f35;padding:14px;font-size:16px;flex-direction:row;justify-content:center}
+.wg{width:150px;height:150px;border:3px solid var(--line);position:relative;overflow:hidden;color:#241f35;padding:14px;background:linear-gradient(160deg,#BFD9FF,#DCCBFF 60%,#FFC2DD);box-shadow:4px 4px 0 var(--sh);display:flex;flex-direction:column;justify-content:space-between;flex:none}
+.wg.sq{border-radius:26px}.wg.ci{border-radius:50%;text-align:center;align-items:center;padding:22px 10px}.wg.cl{border-radius:58% 42% 55% 45%/48% 58% 42% 52%;padding:20px 16px}
+.wg .st{font-weight:900;font-size:14px;line-height:1.15}.wg .tt{font-size:11px;font-weight:800;opacity:.85}.wg .am{font-size:19px;font-weight:900;line-height:1.1}
+.wg .bt{font:inherit;font-weight:900;font-size:11px;background:#241f35;color:#fff;border:0;border-radius:99px;padding:5px 11px;align-self:flex-start;cursor:pointer}
+.wg.ci .bt,.wg.cl .bt{align-self:center}
 :focus-visible{outline:3px solid var(--coral);outline-offset:2px}
 </style>
 </head>
@@ -113,6 +118,7 @@ var rec=S.tx.slice().sort(function(a,b){return b.id-a.id}).slice(0,4).map(txRow)
 return '<div class="top"><div><small>Halo, teman dompet!</small><h1>Mochi Dompet</h1></div></div>'+
 '<div class="card bal">'+mascot(64)+'<small style="font-weight:800">Total saldo</small><div class="big">'+rp(total())+'</div><div class="chips">'+wl+'<button class="pill" data-sh="wal" style="cursor:pointer">＋ Dompet</button></div></div>'+
 '<h2 style="margin-bottom:10px">Yuk catat!</h2><div class="acts"><button class="btn" style="background:var(--mint)" data-add="in"><b>＋</b>Pemasukan</button><button class="btn" style="background:var(--pink)" data-add="out"><b>－</b>Pengeluaran</button><button class="btn" style="background:var(--sky)" data-add="tf"><b>⇄</b>Transfer</button></div>'+
+'<div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="margin:0 auto">'+wgHtml(wcfg())+'</div><div style="flex:1;min-width:140px"><h2>Widget kamu</h2><small style="color:var(--muted)">Ringkasan cepat untuk layar utama.</small><div style="margin-top:10px"><button class="chip" data-sh="wid">Atur widget</button></div></div></div>'+
 '<div class="card quote">'+mascot(46)+'<div><small style="font-weight:800">Kata-kata Mochi hari ini</small><div>'+QUOTES[d0.getDate()%QUOTES.length]+'</div></div></div>'+
 '<div class="card"><h2 style="margin-bottom:10px">Pengeluaran bulan ini</h2>'+donut(cats())+'</div>'+
 '<div class="card"><div class="top" style="margin:0"><h2>Transaksi terakhir</h2><button class="link" data-tab="trx">Lihat semua</button></div>'+rec+'</div>'}
@@ -129,7 +135,28 @@ return '<div class="hdr"><div class="top" style="margin:0"><div><small style="co
 function render(){$("#app").innerHTML=tab==="home"?home():tab==="trx"?trx():report();
 $("#nav").innerHTML=[["home","🏡","Home"],["trx","🧾","Transaksi"],["rep","📈","Report"]].map(function(x){return '<button data-tab="'+x[0]+'" class="'+(tab===x[0]?'on':'')+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("")}
 function $(s){return document.querySelector(s)}
-function sheet(){if(f.mode==="wal"){$("#sheet").innerHTML='<h2 style="margin-bottom:12px">Dompet baru</h2><label>Nama dompet</label><input id="wn" maxlength="16" placeholder="Misalnya: E-wallet"><button class="btn save" id="savew">Simpan 🍡</button>';return}
+var PER={day:"Hari ini",week:"Minggu ini",month:"Bulan ini"};
+function wcfg(){return Object.assign({tab:"out",per:"day",cat:"all",wal:"all",shape:"sq",aware:true},S.widget||{})}
+function wval(c){var today=d0.toISOString().slice(0,10),mo=today.slice(0,7);
+function inP(t){return c.per==="day"?t.date===today:c.per==="week"?(t.date>=iso(6)&&t.date<=today):t.date.slice(0,7)===mo}
+var sp=S.tx.filter(function(t){return t.type==="out"&&inP(t)&&(c.cat==="all"||t.cat===c.cat)&&(c.wal==="all"||t.wallet===c.wal)}).reduce(function(a,t){return a+t.amt},0);
+var B=c.cat==="all"?Object.keys(S.budget).reduce(function(a,k){return a+S.budget[k]},0):(S.budget[c.cat]||0);
+var Bp=c.per==="day"?B/30:c.per==="week"?B*7/30:B,r=Bp?sp/Bp:0;
+var st=!Bp?["Belum ada anggaran","#BFD9FF"]:r<.6?["Masih Aman","#BDEFD3"]:r<1?["Mulai Hati-hati","#FFF0A0"]:["Lagi Boros","#FF7A6B"];
+var lb=c.tab==="out"?"Pengeluaran":c.tab==="bud"?"Sisa Anggaran":"Tabungan";
+var am=c.tab==="out"?sp:c.tab==="bud"?Math.max(0,Bp-sp):(c.wal==="all"?total():wbal(c.wal));
+return {st:st,lb:lb,am:am,per:PER[c.per]}}
+function wgHtml(c,pv){var v=wval(c);return '<div class="wg '+c.shape+'"><div class="st">'+(c.aware?'<span class="dot" style="background:'+v.st[1]+';display:inline-block;vertical-align:-1px;margin-right:4px"></span>'+v.st[0]:v.per)+'</div><div><div class="tt">'+v.lb+(c.aware?' · '+v.per:'')+'</div><div class="am">'+rp(v.am)+'</div></div>'+(pv?'<span class="bt">＋ Tambah</span>':'<button class="bt" data-add="out">＋ Tambah</button>')+'</div>'}
+function sheet(){if(f.mode==="wid"){var c=f.w,ch=function(k,v,l){return '<button class="chip'+(c[k]===v?' on':'')+'" data-w="'+k+'|'+esc(v)+'">'+l+'</button>'};
+$("#sheet").innerHTML='<h2 style="margin-bottom:12px">Pengaturan widget</h2><div style="display:flex;justify-content:center;margin-bottom:6px">'+wgHtml(c,1)+'</div>'+
+'<label>Tampilkan</label><div class="chips">'+ch("tab","out","🎯 Pengeluaran")+ch("tab","bud","🧮 Budgeting")+ch("tab","sav","🐷 Tabungan")+'</div>'+
+'<label>Periode</label><div class="chips">'+ch("per","day","Hari ini")+ch("per","week","Minggu ini")+ch("per","month","Bulan ini")+'</div>'+
+'<label>Kategori</label><div class="chips">'+ch("cat","all","Semua")+CAT.out.map(function(k){return ch("cat",k[0],k[1]+" "+esc(k[0]))}).join("")+'</div>'+
+'<label>Dompet</label><div class="chips">'+ch("wal","all","Semua")+S.wallets.map(function(w){return ch("wal",w,esc(w))}).join("")+'</div>'+
+'<label>Bentuk</label><div class="chips">'+ch("shape","sq","⬛ Square")+ch("shape","ci","⚪ Circle")+ch("shape","cl","☁️ Cloud")+'</div>'+
+'<label>Mode Sadar Diri</label><button class="chip'+(c.aware?' on':'')+'" data-w="aware|x">'+(c.aware?'Aktif: tampil status aman atau boros':'Mati')+'</button>'+
+'<button class="btn save" id="savewg">Simpan Perubahan</button>';return}
+if(f.mode==="wal"){$("#sheet").innerHTML='<h2 style="margin-bottom:12px">Dompet baru</h2><label>Nama dompet</label><input id="wn" maxlength="16" placeholder="Misalnya: E-wallet"><button class="btn save" id="savew">Simpan 🍡</button>';return}
 if(f.mode==="bud"){$("#sheet").innerHTML='<h2 style="margin-bottom:4px">Anggaran bulanan</h2><small style="color:var(--muted)">Kosongkan jika tidak ingin dibatasi.</small>'+CAT.out.map(function(c,i){return '<label>'+c[1]+' '+esc(c[0])+'</label><input class="bi" data-i="'+i+'" inputmode="numeric" placeholder="0" value="'+(S.budget[c[0]]||"")+'">'}).join("")+'<button class="btn save" id="saveb">Simpan 🍡</button>';return}
 var t=f.type,isT=t==="tf",cl=CAT[t]||[];var ty=[["out","Pengeluaran"],["in","Pemasukan"],["tf","Transfer"]].map(function(x){return '<button class="chip'+(t===x[0]?' on':'')+'" data-ty="'+x[0]+'">'+x[1]+'</button>'}).join("");
 var cc=isT?'':'<label>Kategori</label><div class="chips">'+cl.map(function(c){return '<button class="chip'+(f.cat===c[0]?' on':'')+'" data-cat="'+esc(c[0])+'">'+c[1]+' '+esc(c[0])+'</button>'}).join("")+'</div>';
@@ -147,7 +174,9 @@ var g=function(k){return el.getAttribute(k)};
 if(g("data-tab")){tab=g("data-tab")==="rep"?"rep":g("data-tab");render();scrollTo(0,0)}
 else if(g("data-add"))open(g("data-add"));
 else if(el.id==="fab")open("out");
-else if(g("data-sh")){f={mode:g("data-sh")};sheet();$("#ov").classList.add("show")}
+else if(g("data-w")){var p=g("data-w").split("|");if(p[0]==="aware")f.w.aware=!f.w.aware;else f.w[p[0]]=p.slice(1).join("|");sheet()}
+else if(el.id==="savewg"){S.widget=f.w;save();close();render()}
+else if(g("data-sh")){f={mode:g("data-sh"),w:wcfg()};sheet();$("#ov").classList.add("show")}
 else if(el.id==="savew"){var n=$("#wn").value.trim();if(!n)return;if(S.wallets.indexOf(n)<0)S.wallets.push(n);save();close();render()}
 else if(el.id==="saveb"){document.querySelectorAll(".bi").forEach(function(x){var k=CAT.out[+x.getAttribute("data-i")][0],v=parseInt(x.value.replace(/\D/g,""),10);if(v)S.budget[k]=v;else delete S.budget[k]});save();close();render()}
 else if(g("data-f")){flt=g("data-f");render()}

@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Mochi Dompet</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#FFF8D6">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -27,7 +27,7 @@ button.ri{cursor:pointer}.ri:last-child{border-bottom:0}
 .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .tri button{font:inherit;font-weight:900;font-size:11px;color:#241f35;border:2px solid var(--line);border-radius:18px;padding:12px 4px;cursor:pointer}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{font-size:14px;margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,ui-rounded,system-ui,sans-serif;font-weight:600}
+html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;font-size:14px;margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,ui-rounded,system-ui,sans-serif;font-weight:600}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 #app{max-width:480px;margin:0 auto;padding:18px 16px 110px}
@@ -148,7 +148,7 @@ nav button.on span{filter:none;transform:scale(1.15)}
 .pgc{background:var(--card);margin:16px;border-radius:30px;padding:18px;box-shadow:0 5px 0 rgba(36,31,53,.08)}
 .pgs{display:flex;background:var(--bg);border-radius:99px;padding:5px}.pgs button{flex:1;border:0;border-radius:99px;padding:14px 4px;font:inherit;font-weight:800;background:transparent;color:var(--muted);cursor:pointer}.pgs button.on{background:var(--card);color:var(--ink);box-shadow:0 3px 8px rgba(36,31,53,.15)}
 .pgl{font-weight:900;margin:18px 2px 8px;font-size:15px}.pgi{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:20px;padding:6px 16px}.pgi input{border:0!important;background:transparent!important;box-shadow:none!important;padding:10px 0!important;width:100%;min-width:0;font:inherit;font-weight:700;color:var(--ink)}
-.pgg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pgt{border:2px solid color-mix(in srgb,var(--line) 12%,transparent);border-radius:22px;background:var(--card);padding:12px 4px;font:inherit;font-weight:800;font-size:12px;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:78px;justify-content:center}.pgt span{font-size:26px}.pgt.on{background:#EFE6FF;border-color:#B78CFF}.pgt.dash{border-style:dashed;color:var(--muted)}
+.pgg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pgt{border:2px solid color-mix(in srgb,var(--line) 12%,transparent);border-radius:22px;background:var(--card);padding:12px 4px;font:inherit;font-weight:800;font-size:12px;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:78px;justify-content:center}.pgt span{font-size:26px}.pgt.on{background:#EFE6FF;border-color:#B78CFF;color:#241f35}.pgt.dash{border-style:dashed;color:var(--muted)}
 .sheet.qs{background:#F4F2EF;border:0;border-radius:34px 34px 0 0;min-height:70%}
 .qx{position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:18px;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.15);cursor:pointer;color:#241f35}
 .qrow{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 10px;margin-top:6px}.qch{flex:none;display:flex;align-items:center;gap:8px;border:0;border-radius:99px;padding:14px 18px;background:#fff;font:inherit;font-weight:900;font-size:15px;color:#241f35;box-shadow:0 3px 8px rgba(0,0,0,.1);cursor:pointer}.qch.dark{background:#2a2a2e;color:#fff;flex-wrap:wrap;justify-content:center;max-width:210px}
@@ -167,6 +167,10 @@ nav button.on span{filter:none;transform:scale(1.15)}
 .qb2{border:0;border-radius:99px;padding:13px;background:#fff;font:inherit;font-weight:900;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;margin-top:8px;color:#241f35}
 .qc2 .qbtn{margin-top:auto}
 .qdots{display:flex;gap:6px;justify-content:center;margin:6px 0}.qdots i{width:10px;height:10px;border-radius:99px;background:#d6d1ca}.qdots i.on{width:26px;background:#F4761F}
+.calcb{border:0;background:var(--card);border-radius:14px;font-size:22px;padding:8px 10px;cursor:pointer;flex:none;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.calc{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9;display:flex;align-items:flex-end}.cbox{background:var(--card);width:100%;border-radius:28px 28px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.cdisp{background:var(--bg);border-radius:20px;padding:12px 16px;text-align:right;margin-bottom:12px;overflow:hidden}.cdisp small{display:block;color:var(--muted);font-weight:800;font-size:15px;min-height:20px;word-break:break-all}.cdisp b{font-size:26px}
+.ckeys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.ckeys button{border:0;border-radius:18px;padding:15px 0;background:var(--bg);font:inherit;font-weight:900;font-size:19px;color:var(--ink);cursor:pointer}.ckeys .op{background:#EFE6FF;color:#6b3fd0}.ckeys .fn{background:#FFE1E4;color:#e0453a}.ckeys .use{grid-column:span 1;background:linear-gradient(90deg,#F2A6D6,#C9B6FF);color:#fff;font-size:15px}
 .grab{width:48px;height:5px;border-radius:9px;background:#c9c5d3;margin:-6px auto 10px}
 .aht{display:flex;align-items:center;justify-content:center;position:relative;padding-bottom:12px;margin-bottom:12px;border-bottom:1.5px solid color-mix(in srgb,var(--line) 12%,transparent)}.aht h2{font-size:19px}.aht .chip{position:absolute;right:0;padding:6px 11px}
 .tabar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:26px;background:var(--bg);border:1.5px solid color-mix(in srgb,var(--line) 12%,transparent)}.tabar small{font-weight:900;letter-spacing:.6px;color:var(--muted)}.tn{font-weight:900;font-size:16px;word-break:break-all}
@@ -216,6 +220,8 @@ rebuild();
 function advD(d,fq){var x=new Date(d+"T00:00:00Z");if(fq==="day")x.setUTCDate(x.getUTCDate()+1);else if(fq==="week")x.setUTCDate(x.getUTCDate()+7);else{var dd=x.getUTCDate();x.setUTCDate(1);x.setUTCMonth(x.getUTCMonth()+1);var ml=new Date(Date.UTC(x.getUTCFullYear(),x.getUTCMonth()+1,0)).getUTCDate();x.setUTCDate(Math.min(dd,ml))}return x.toISOString().slice(0,10)}
 function runAuto(){var td=d0.toISOString().slice(0,10),ch=false;S.auto.forEach(function(a){var n=0;while(a.next<=td&&n<60){S.tx.push({id:Date.now()+Math.floor(Math.random()*1e6),type:"tf",amt:a.amt,cat:"Transfer",wallet:a.from,to:a.to,note:"Auto-transfer",date:a.next});a.next=advD(a.next,a.freq);n++;ch=true}});if(ch)save()}
 var PG=null;
+function calcVal(e){e=String(e||"").replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-");if(!/^[0-9+\-*/ ]+$/.test(e))return null;e=e.replace(/[+\-*/]+$/,"");if(!e)return 0;try{var v=Function('"use strict";return ('+e+')')();return isFinite(v)?v:null}catch(x){return null}}
+function calcShow(){var a=$("#cexp"),b=$("#cres");if(!a||!b||!PG)return;a.textContent=PG.calc||"0";var v=calcVal(PG.calc);b.textContent=v===null?"…":rp(Math.round(v))}
 function pgOpen(t,w){PG={type:t||"out",cat:"",wallet:(w&&S.wallets.indexOf(w)>=0)?w:S.wallets[0],amt:"",note:"",date:d0.toISOString().slice(0,10),time:"",jam:false};pgRender()}
 function pgKeep(){if(!PG)return;var a=$("#pa");if(a)PG.amt=a.value;var n=$("#pn");if(n)PG.note=n.value;var w=$("#pw");if(w)PG.wallet=w.value;var d=$("#pd");if(d&&d.value)PG.date=d.value;var tm=$("#pt");if(tm)PG.time=tm.value}
 function pgClose(){PG=null;var p=$("#pg");if(p){p.remove()}}
@@ -224,13 +230,19 @@ var inc=PG.type==="in",cs=CAT[PG.type]||[];if(!cs.some(function(c){return c[0]==
 p.innerHTML='<div class="pgh" style="background:'+(inc?'linear-gradient(180deg,#C6E3A8,#A9D68A)':'linear-gradient(180deg,#FFB0A5,#F4796B)')+'"><div style="display:flex;justify-content:space-between;align-items:flex-start"><button class="link" data-px="1" style="color:#fff;text-decoration:none;font-size:15px">← Kembali</button><span style="font-size:48px;line-height:1">'+(inc?'💰':'💸')+'</span></div><h1 style="color:#fff;font-size:28px;margin-top:6px">Tambah '+(inc?'Pemasukan':'Pengeluaran')+'</h1><div style="color:#fff;font-weight:700;opacity:.95">'+(inc?'Wah dapet cuan! 🎉':'Catat dulu biar nggak lupa 📝')+'</div><div class="pgw"><span style="font-size:20px">👛</span><select id="pw">'+S.wallets.map(function(w){return '<option value="'+esc(w)+'"'+(w===PG.wallet?' selected':'')+'>'+esc(w)+' ('+rp(wbal(w))+')</option>'}).join("")+'</select></div></div>'+
 '<div class="pgc"><div style="display:flex;align-items:center;gap:10px;font-size:19px;font-weight:900;margin-bottom:14px"><span style="font-size:22px;font-weight:400">1</span>Transaksi #1</div>'+
 '<div class="pgs"><button class="'+(inc?'':'on')+'" data-pt="out">💸 Pengeluaran</button><button class="'+(inc?'on':'')+'" data-pt="in">💰 Pemasukan</button></div>'+
-'<div class="pgl">Jumlah</div><div class="pgi"><b style="color:var(--muted);font-size:17px">Rp</b><input id="pa" inputmode="numeric" placeholder="0" value="'+esc(PG.amt)+'" style="font-size:22px;font-weight:900"><span style="font-size:20px">🧮</span></div>'+
+'<div class="pgl">Jumlah</div><div class="pgi"><b style="color:var(--muted);font-size:17px">Rp</b><input id="pa" inputmode="numeric" placeholder="0" value="'+esc(PG.amt)+'" style="font-size:22px;font-weight:900"><button class="calcb" data-ck="open" aria-label="Kalkulator">🧮</button></div>'+
 '<div class="pgl">Deskripsi</div><div class="pgi"><input id="pn" placeholder="Ini transaksi apa?" value="'+esc(PG.note)+'"></div>'+
 '<div class="pgl" style="display:flex;justify-content:space-between">Kategori</div><div class="pgg">'+cs.map(function(c){return '<button class="pgt'+(c[0]===PG.cat?' on':'')+'" data-pc="'+esc(c[0])+'"><span>'+c[1]+'</span>'+esc(c[0])+'</button>'}).join("")+'<button class="pgt dash" data-sh="catf2"><span>➕</span>Kategori Baru</button></div>'+
 '<button class="link" data-sh="cat" style="display:block;margin:14px auto;text-decoration:none;color:#8A3FE0;font-weight:900">📝 Kelola Kategori</button>'+
 '<div class="pgl" style="display:flex;justify-content:space-between;align-items:center">Tanggal<span style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)">Jam <button class="sw'+(PG.jam?' on':'')+'" data-pj="1" aria-label="Jam"></button></span></div><div class="pgi" style="gap:8px"><input type="date" id="pd" value="'+PG.date+'">'+(PG.jam?'<input type="time" id="pt" value="'+esc(PG.time)+'" style="max-width:130px">':'')+'</div>'+
-'<button class="btn save" data-ps="1" style="width:100%;margin-top:18px;flex-direction:row;justify-content:center;font-size:15px">Simpan 🍡</button></div>'}
+(PG.cOpen?'<div class="calc"><div class="cbox"><div class="cdisp"><small id="cexp">0</small><b id="cres">Rp 0</b></div><div class="ckeys">'+["C","⌫","÷","×","7","8","9","−","4","5","6","+","1","2","3","=","0","00","000"].map(function(k){var op="÷×−+=".indexOf(k)>=0;return '<button class="'+(op?'op':(k==="C"||k==="⌫"?'fn':''))+'" data-ck="'+k+'">'+k+'</button>'}).join("")+'<button class="use" data-ck="use">Pakai ✓</button></div><button class="chip" data-ck="x" style="width:100%;margin-top:10px">Batal</button></div></div>':'')+'<button class="btn save" data-ps="1" style="width:100%;margin-top:18px;flex-direction:row;justify-content:center;font-size:15px">Simpan 🍡</button></div>'}
 document.addEventListener("click",function(e){var el=e.target.closest("#pg button");if(!el||!PG)return;var g=function(k){return el.getAttribute(k)};
+if(g("data-ck")){var k=g("data-ck");if(k==="open"){pgKeep();PG.cOpen=true;PG.calc=String(PG.amt||"").replace(/\D/g,"");pgRender();calcShow();return}
+if(k==="x"){PG.cOpen=false;pgRender();return}
+if(k==="use"){var v=calcVal(PG.calc);if(v===null){return}PG.amt=String(Math.max(0,Math.round(v)));var ia=$("#pa");if(ia)ia.value=PG.amt;PG.cOpen=false;pgRender();return}
+if(k==="C")PG.calc="";else if(k==="⌫")PG.calc=(PG.calc||"").slice(0,-1);else if(k==="="){var v2=calcVal(PG.calc);if(v2!==null)PG.calc=String(Math.round(v2))}
+else{var last=(PG.calc||"").slice(-1),isOp="÷×−+".indexOf(k)>=0;if(isOp&&(!PG.calc||"÷×−+".indexOf(last)>=0)){if(PG.calc&&"÷×−+".indexOf(last)>=0)PG.calc=PG.calc.slice(0,-1)+k;return calcShow()}PG.calc=(PG.calc||"")+k}
+calcShow();return}
 if(g("data-px")){pgClose();return}
 if(g("data-pt")){pgKeep();PG.type=g("data-pt");PG.cat="";pgRender();return}
 if(g("data-pc")){pgKeep();PG.cat=g("data-pc");pgRender();return}
@@ -479,52 +491,4 @@ else if(g("data-rw")){RP.w=g("data-rw");render()}
 else if(g("data-rp")){RP.p=g("data-rp");render()}
 else if(g("data-rt")){RP.tab=g("data-rt");render()}
 else if(g("data-rh")){RP.hide=!RP.hide;render()}
-else if(el.id==="rexp"){csvDown(rtx(),"report-mochi.csv")}
-else if(g("data-pg")){var pw0=g("data-pw"),pt0=g("data-pg")==="1"?"out":g("data-pg");close();pgOpen(pt0,pw0)}
-else if(g("data-qt")){f.tab=g("data-qt");sheet()}
-else if(g("data-qs")){f.sel=g("data-qs");sheet()}
-else if(g("data-dn")){f={mode:"debtf",kind:"hutang"};sheet()}
-else if(g("data-db")){f={mode:"qa",tab:"qa",sel:"debt"};sheet()}
-else if(g("data-dk")){f.who=$("#dwho").value;f.amt=$("#damt").value;f.note=$("#dnote").value;f.date=$("#ddt").value;f.kind=g("data-dk");sheet()}
-else if(el.id==="sdebt"){var dw=$("#dwho").value.trim(),da=parseInt($("#damt").value.replace(/\D/g,""),10);if(!dw||!da){alert("Isi nama dan jumlahnya ya 🍡");return}S.debts.push({id:Date.now(),who:dw.slice(0,30),amt:da,kind:f.kind,note:$("#dnote").value.trim(),date:$("#ddt").value||d0.toISOString().slice(0,10),paid:false});save();f={mode:"qa",tab:"qa",sel:"debt"};sheet()}
-else if(g("data-dp")){var dpi=g("data-dp");S.debts.forEach(function(x){if(String(x.id)===dpi)x.paid=!x.paid});save();sheet()}
-else if(g("data-dd")){var ddi=g("data-dd");if(confirm("Hapus catatan ini?")){S.debts=S.debts.filter(function(x){return String(x.id)!==ddi});save();sheet()}}
-else if(g("data-wt")){var wt0=g("data-wt");close();TF.w=wt0;flt="all";tab="trx";render();scrollTo(0,0)}
-else if(g("data-qn")){var qk=g("data-qn");if(qk==="wal"){f={mode:"wal",name:""};sheet()}else if(qk==="debt"){f={mode:"debtf",kind:"hutang"};sheet()}else{f={mode:"gf",k:qk,v:{},sel:qk};sheet()}}
-else if(g("data-gb")){f={mode:"qa",tab:"qa",sel:f.sel||(f.k==="nab"?"nab":f.k)||"wal"};sheet()}
-else if(g("data-gc")){gkeep();var gp=g("data-gc").split("|");f.v[gp[0]]=gp[1];sheet()}
-else if(el.id==="sgf"){gkeep();var G2=GF[f.k],v2=f.v,it={id:Date.now()};var ok=true;G2.fields.forEach(function(x){if(x[2]==="t")it[x[0]]=String(v2[x[0]]||"").trim().slice(0,30);else if(x[2]==="n")it[x[0]]=pint(v2[x[0]]);else it[x[0]]=v2[x[0]]||x[3][0]});if(!it.name||!(it.target||it.cost||it.limit)){alert("Isi nama dan angkanya dulu ya 🍡");return}if(G2.kind)it.kind=G2.kind;if(f.k==="cc")it.due=Math.min(31,Math.max(1,it.due||25));if(f.k==="inv"&&!it.value)it.value=it.cost;S[G2.store].push(it);save();f={mode:"qa",tab:"qa",sel:f.k}; sheet()}
-else if(g("data-aj")){var ap=g("data-aj").split("|");f={mode:"adj",st:ap[0],id:ap[1],fld:ap[2],op:ap[3],title:ap[4],label:ap[5],sel:ap[0]==="cards"?"cc":ap[0]==="invs"?"inv":(S.goals.filter(function(x){return String(x.id)===ap[1]})[0]||{}).kind==="dream"?"dream":"nab"};sheet()}
-else if(el.id==="sadj"){var av=pint($("#aamt").value);var ai=S[f.st].filter(function(x){return String(x.id)===f.id})[0];if(ai&&(av||f.op==="set")){if(f.op==="add")ai[f.fld]+=av;else if(f.op==="sub")ai[f.fld]=Math.max(0,ai[f.fld]-av);else ai[f.fld]=av;save()}f={mode:"qa",tab:"qa",sel:f.sel};sheet()}
-else if(g("data-xd")){var xp=g("data-xd").split("|");if(confirm("Hapus item ini?")){S[xp[0]]=S[xp[0]].filter(function(x){return String(x.id)!==xp[1]});save();sheet()}}
-else if(g("data-wh")){var wh=g("data-wh");pk=null;f={mode:"wal",edit:wh,name:wh,w:{wimg:S.wimg[wh]},home:1};sheet();$("#ov").classList.add("show")}
-else if(g("data-ft")){var a=g("data-ft");kn();if(a==="rep"){tab="rep";render();scrollTo(0,0)}else if(a==="bud"){f={mode:"bud"};sheet();$("#ov").classList.add("show")}else{f={mode:"soon",t:a};sheet();$("#ov").classList.add("show")}}
-else if(g("data-pick")){var ii=document.querySelector('input[data-img="'+g("data-pick")+'"]');if(ii)ii.click()}
-else if(g("data-ri")){kw();delete f.w[g("data-ri")];if(g("data-ri")==="wimg")f.w.wclr=1;sheet()}
-else if(g("data-w")){kw();var p=g("data-w").split("|");if(p[0]==="aware")f.w.aware=!f.w.aware;else f.w[p[0]]=p.slice(1).join("|");sheet()}
-else if(el.id==="savewg"){kw();S.widget=f.w;save();close();render()}
-else if(g("data-sh")){f={mode:g("data-sh"),w:wcfg()};sheet();$("#ov").classList.add("show")}
-else if(el.id==="savew"){kw();var n=(f.name||"").trim().slice(0,16);if(!n)return;var old=f.edit;
-if(old){if(n!==old){if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets[S.wallets.indexOf(old)]=n;S.tx.forEach(function(t){if(t.wallet===old)t.wallet=n;if(t.to===old)t.to=n});if(S.wimg[old]){S.wimg[n]=S.wimg[old];delete S.wimg[old]}if(S.hw===old)S.hw=n;if(pk){["wallet","to"].forEach(function(q){if(pk.form[q]===old)pk.form[q]=n})}}}
-else{if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets.push(n)}
-if(f.w&&f.w.wimg)S.wimg[n]=f.w.wimg;else if(f.w&&f.w.wclr)delete S.wimg[n];
-save();if(f.home){S.hw=n;close()}else{f={mode:"aset"};sheet()}}
-else if(el.id==="saveb"){document.querySelectorAll(".bi").forEach(function(x){var k=CAT.out[+x.getAttribute("data-i")][0],v=parseInt(x.value.replace(/\D/g,""),10);if(v)S.budget[k]=v;else delete S.budget[k]});save();close();render()}
-else if(g("data-f")){flt=g("data-f");TF.c="all";render()}
-else if(g("data-del")){S.tx=S.tx.filter(function(t){return t.id!==+g("data-del")});save();render()}
-else if(g("data-ty")){keep();f.type=g("data-ty");f.cat=(CAT[f.type]||[[""]])[0][0];sheet()}
-else if(g("data-cat")){keep();f.cat=g("data-cat");sheet()}
-else if(el.id==="save"){keep();var a=parseInt(String(f.amt).replace(/\D/g,""),10);if(!a){$("#amt").focus();return}
-if(f.type==="tf"&&f.wallet===f.to){alert("Pilih dua dompet yang berbeda ya.");return}
-var nt={id:f.editId||Date.now(),type:f.type,amt:a,cat:f.type==="tf"?"Transfer":f.cat,wallet:f.wallet,to:f.type==="tf"?f.to:undefined,note:f.note||"",date:f.date||d0.toISOString().slice(0,10),time:f.type==="tf"&&f.time?f.time:undefined};if(f.editId){var ix=S.tx.findIndex(function(x){return x.id===f.editId});if(ix>=0)S.tx[ix]=nt;else S.tx.push(nt)}else S.tx.push(nt);if(!f.editId&&f.type==="tf"){var fa2=parseInt(String(f.feeAmt||"").replace(/\D/g,""),10);if(f.fee&&fa2)S.tx.push({id:Date.now()+1,type:"out",amt:fa2,cat:"Biaya Admin",wallet:f.wallet,note:"Biaya admin transfer",date:nt.date});if(f.auto)S.auto.push({id:Date.now()+2,from:f.wallet,to:f.to,amt:a,freq:f.freq||"month",next:advD(nt.date,f.freq||"month")})}save();beep();close();render()}});
-runAuto();
-document.addEventListener("scroll",function(e){var c=e.target;if(!c||c.id!=="qcar")return;var k=c.children[0];if(!k)return;var i=Math.round(c.scrollLeft/(k.offsetWidth+14)),d=$("#qdots");if(d)Array.prototype.forEach.call(d.children,function(x,j){x.className=j===i?"on":""})},true);
-document.addEventListener("input",function(e){if(e.target&&e.target.id==="sq"){TF.q=e.target.value;var l=$("#tl");if(l)l.innerHTML=trxList()}});
-document.addEventListener("change",function(e){if(e.target&&e.target.id==="fm"){TF.m=e.target.value;render()}});
-render();
-scanInit();applyTheme();try{var q=new URLSearchParams(location.search).get("add");if(q==="in"||q==="out"||q==="tf")open(q)}catch(e){}
-})();
-</script>
-<script>try{if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(x){x.unregister()})}).catch(function(){});if(window.caches)caches.keys().then(function(k){k.forEach(function(x){caches.delete(x)})}).catch(function(){})}catch(e){}</script>
-</body>
-</html>
+else if(el.id==="rexp"

@@ -190,6 +190,7 @@ nav button.on span{filter:none;transform:scale(1.15)}
 <button class="fab" id="fab" aria-label="Catat transaksi">+</button>
 <nav><div id="nav"></div></nav>
 <div class="ov" id="ov"><div class="sheet" id="sheet"></div></div>
+<script>window.addEventListener("error",function(e){var a=document.getElementById("app");if(a&&!a.innerHTML.trim()){a.innerHTML='<div style="padding:24px"><h2>Ups, ada error 😵</h2><p style="word-break:break-word;margin:12px 0">'+String(e.message||"")+' (baris '+(e.lineno||"?")+')</p><button style="padding:12px 18px;border-radius:14px;border:3px solid #241f35;font:inherit;font-weight:800" onclick="if(confirm(\'Hapus semua data aplikasi dan muat ulang?\')){localStorage.removeItem(\'mochi\');location.reload()}">Reset data &amp; muat ulang</button></div>'}});</script>
 <script>
 (function(){
 var CAT={out:[["Makan & Minum","🍙","#FFC2DD"],["Belanja","🛍️","#DCCBFF"],["Transport","🚌","#BFD9FF"],["Tagihan","💡","#FFF0A0"],["Biaya Admin","💳","#FFF0A0"],["Kesehatan","🏥","#BFD9FF"],["Pendidikan","📚","#DCCBFF"],["Lainnya","🧸","#BDEFD3"]],in:[["Gaji","💼","#BDEFD3"],["Freelance","💻","#BFD9FF"],["Investasi","📈","#FFC2DD"],["Bonus","🎁","#FFF0A0"],["Lainnya","🧸","#DCCBFF"]]};var DEF=JSON.parse(JSON.stringify(CAT));
@@ -197,6 +198,7 @@ var QUOTES=["Catat sedikit-sedikit, lama-lama jadi bukit. 🌱","Hari ini jajan 
 var d0=new Date();
 function iso(n){var d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)}
 var S=load(),tab="home",flt="all",f=null,pk=null;
+(function(){if(!S||typeof S!=="object"||Array.isArray(S))S={};if(!Array.isArray(S.wallets)||!S.wallets.length)S.wallets=["Tunai"];S.wallets=S.wallets.map(String);if(!S.budget||typeof S.budget!=="object")S.budget={};if(!Array.isArray(S.tx))S.tx=[];S.tx=S.tx.filter(function(t){return t&&typeof t==="object"&&typeof t.date==="string"&&isFinite(t.amt)});["cats","auto","hcat","debts","goals","invs","cards"].forEach(function(k){if(!Array.isArray(S[k]))S[k]=[]})})();
 function load(){try{var r=localStorage.getItem("mochi");if(r)return JSON.parse(r)}catch(e){}
 return {wallets:["Tunai","Bank"],budget:{},tx:[
 {id:1,type:"in",amt:5000000,cat:"Gaji",wallet:"Bank",note:"Gaji bulanan",date:iso(2)},
@@ -499,12 +501,4 @@ else if(g("data-ri")){kw();delete f.w[g("data-ri")];if(g("data-ri")==="wimg")f.w
 else if(g("data-w")){kw();var p=g("data-w").split("|");if(p[0]==="aware")f.w.aware=!f.w.aware;else f.w[p[0]]=p.slice(1).join("|");sheet()}
 else if(el.id==="savewg"){kw();S.widget=f.w;save();close();render()}
 else if(g("data-sh")){f={mode:g("data-sh"),w:wcfg()};sheet();$("#ov").classList.add("show")}
-else if(el.id==="savew"){kw();var n=(f.name||"").trim().slice(0,16);if(!n)return;var old=f.edit;
-if(old){if(n!==old){if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets[S.wallets.indexOf(old)]=n;S.tx.forEach(function(t){if(t.wallet===old)t.wallet=n;if(t.to===old)t.to=n});if(S.wimg[old]){S.wimg[n]=S.wimg[old];delete S.wimg[old]}if(S.hw===old)S.hw=n;if(pk){["wallet","to"].forEach(function(q){if(pk.form[q]===old)pk.form[q]=n})}}}
-else{if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets.push(n)}
-if(f.w&&f.w.wimg)S.wimg[n]=f.w.wimg;else if(f.w&&f.w.wclr)delete S.wimg[n];
-save();f={mode:"aset"};sheet()}
-else if(el.id==="saveb"){document.querySelectorAll(".bi").forEach(function(x){var k=CAT.out[+x.getAttribute("data-i")][0],v=parseInt(x.value.replace(/\D/g,""),10);if(v)S.budget[k]=v;else delete S.budget[k]});save();close();render()}
-else if(g("data-f")){flt=g("data-f");TF.c="all";render()}
-else if(g("data-del")){S.tx=S.tx.filter(function(t){return t.id!==+g("data-del")});save();render()}
-else if(g("data-ty")){keep();f.type=g("data-ty");f.cat=(CAT[f.type]||[[""]
+else if(el.id==="savew"){kw();var n=(f.name||"").trim().slice(0,16);if(!n)return;var

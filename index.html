@@ -498,4 +498,33 @@ else if(g("data-aj")){var ap=g("data-aj").split("|");f={mode:"adj",st:ap[0],id:a
 else if(el.id==="sadj"){var av=pint($("#aamt").value);var ai=S[f.st].filter(function(x){return String(x.id)===f.id})[0];if(ai&&(av||f.op==="set")){if(f.op==="add")ai[f.fld]+=av;else if(f.op==="sub")ai[f.fld]=Math.max(0,ai[f.fld]-av);else ai[f.fld]=av;save()}f={mode:"qa",tab:"qa",sel:f.sel};sheet()}
 else if(g("data-xd")){var xp=g("data-xd").split("|");if(confirm("Hapus item ini?")){S[xp[0]]=S[xp[0]].filter(function(x){return String(x.id)!==xp[1]});save();sheet()}}
 else if(g("data-wh")){var wh=g("data-wh");pk=null;f={mode:"wal",edit:wh,name:wh,w:{wimg:S.wimg[wh]},home:1};sheet();$("#ov").classList.add("show")}
-else if(g("data-ft")){var a=g("data-ft");k
+else if(g("data-ft")){var a=g("data-ft");kn();if(a==="rep"){tab="rep";render();scrollTo(0,0)}else if(a==="bud"){f={mode:"bud"};sheet();$("#ov").classList.add("show")}else{f={mode:"soon",t:a};sheet();$("#ov").classList.add("show")}}
+else if(g("data-pick")){var ii=document.querySelector('input[data-img="'+g("data-pick")+'"]');if(ii)ii.click()}
+else if(g("data-ri")){kw();delete f.w[g("data-ri")];if(g("data-ri")==="wimg")f.w.wclr=1;sheet()}
+else if(g("data-w")){kw();var p=g("data-w").split("|");if(p[0]==="aware")f.w.aware=!f.w.aware;else f.w[p[0]]=p.slice(1).join("|");sheet()}
+else if(el.id==="savewg"){kw();S.widget=f.w;save();close();render()}
+else if(g("data-sh")){f={mode:g("data-sh"),w:wcfg()};sheet();$("#ov").classList.add("show")}
+else if(el.id==="savew"){kw();var n=(f.name||"").trim().slice(0,16);if(!n)return;var old=f.edit;
+if(old){if(n!==old){if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets[S.wallets.indexOf(old)]=n;S.tx.forEach(function(t){if(t.wallet===old)t.wallet=n;if(t.to===old)t.to=n});if(S.wimg[old]){S.wimg[n]=S.wimg[old];delete S.wimg[old]}if(S.hw===old)S.hw=n;if(pk){["wallet","to"].forEach(function(q){if(pk.form[q]===old)pk.form[q]=n})}}}
+else{if(S.wallets.indexOf(n)>=0){alert("Nama dompet sudah ada.");return}S.wallets.push(n)}
+if(f.w&&f.w.wimg)S.wimg[n]=f.w.wimg;else if(f.w&&f.w.wclr)delete S.wimg[n];
+save();if(f.home){S.hw=n;close()}else{f={mode:"aset"};sheet()}}
+else if(el.id==="saveb"){document.querySelectorAll(".bi").forEach(function(x){var k=CAT.out[+x.getAttribute("data-i")][0],v=parseInt(x.value.replace(/\D/g,""),10);if(v)S.budget[k]=v;else delete S.budget[k]});save();close();render()}
+else if(g("data-f")){flt=g("data-f");TF.c="all";render()}
+else if(g("data-del")){S.tx=S.tx.filter(function(t){return t.id!==+g("data-del")});save();render()}
+else if(g("data-ty")){keep();f.type=g("data-ty");f.cat=(CAT[f.type]||[[""]])[0][0];sheet()}
+else if(g("data-cat")){keep();f.cat=g("data-cat");sheet()}
+else if(el.id==="save"){keep();var a=parseInt(String(f.amt).replace(/\D/g,""),10);if(!a){$("#amt").focus();return}
+if(f.type==="tf"&&f.wallet===f.to){alert("Pilih dua dompet yang berbeda ya.");return}
+var nt={id:f.editId||Date.now(),type:f.type,amt:a,cat:f.type==="tf"?"Transfer":f.cat,wallet:f.wallet,to:f.type==="tf"?f.to:undefined,note:f.note||"",date:f.date||d0.toISOString().slice(0,10),time:f.type==="tf"&&f.time?f.time:undefined};if(f.editId){var ix=S.tx.findIndex(function(x){return x.id===f.editId});if(ix>=0)S.tx[ix]=nt;else S.tx.push(nt)}else S.tx.push(nt);if(!f.editId&&f.type==="tf"){var fa2=parseInt(String(f.feeAmt||"").replace(/\D/g,""),10);if(f.fee&&fa2)S.tx.push({id:Date.now()+1,type:"out",amt:fa2,cat:"Biaya Admin",wallet:f.wallet,note:"Biaya admin transfer",date:nt.date});if(f.auto)S.auto.push({id:Date.now()+2,from:f.wallet,to:f.to,amt:a,freq:f.freq||"month",next:advD(nt.date,f.freq||"month")})}save();beep();close();render()}});
+runAuto();
+document.addEventListener("scroll",function(e){var c=e.target;if(!c||c.id!=="qcar")return;var k=c.children[0];if(!k)return;var i=Math.round(c.scrollLeft/(k.offsetWidth+14)),d=$("#qdots");if(d)Array.prototype.forEach.call(d.children,function(x,j){x.className=j===i?"on":""})},true);
+document.addEventListener("input",function(e){if(e.target&&e.target.id==="sq"){TF.q=e.target.value;var l=$("#tl");if(l)l.innerHTML=trxList()}});
+document.addEventListener("change",function(e){if(e.target&&e.target.id==="fm"){TF.m=e.target.value;render()}});
+render();
+scanInit();applyTheme();try{var q=new URLSearchParams(location.search).get("add");if(q==="in"||q==="out"||q==="tf")open(q)}catch(e){}
+})();
+</script>
+<script>try{if("serviceWorker" in navigator)navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(x){x.unregister()})}).catch(function(){});if(window.caches)caches.keys().then(function(k){k.forEach(function(x){caches.delete(x)})}).catch(function(){})}catch(e){}</script>
+</body>
+</html>
